@@ -1,0 +1,16 @@
+@font-face {
+    font-family: 'Press_Start_2P'; // <-好きな名前をつけれます。
+    src: url('../font/Press_Start_2P.otf/PressStart2P.ttf') format("truetype");
+  }
+
+  .unique-font {
+    font-family: 'Press_Start_2P';
+  }
+
+  .padding-top {
+    padding-top: 20px;
+  }
+  
+  .padding-left {
+    padding-left: 20px;
+  }

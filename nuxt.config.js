@@ -39,6 +39,7 @@ export default {
     '@nuxt/content',
     '@nuxtjs/auth',
     '@nuxtjs/dotenv',
+    '@nuxtjs/markdownit',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -70,5 +71,11 @@ export default {
       callback: '/', // コールバックURL
       home: '/', // ログイン後に遷移するページ
     },
+  },
+  markdownit: {
+    preset: 'default',
+    linkify: true,
+    breaks: true,
+    use: ['markdown-it-div', 'markdown-it-attrs'],
   },
 }

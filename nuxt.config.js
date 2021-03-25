@@ -74,9 +74,18 @@ export default {
   },
   markdownit: {
     preset: 'default',
-    linkify: true,
+    injected: true,
     breaks: true,
+    html: true,
+    linkify: true,
+    typography: true,
+    xhtmlOut: true,
     use: ['markdown-it-div', 'markdown-it-attrs'],
     runtime: true,
+    langPrefix: 'language-',
+    quotes: '“”‘’',
+    highlight: function (/*str, lang*/) {
+      return ''
+    },
   },
 }

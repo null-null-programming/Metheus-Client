@@ -25,7 +25,6 @@
               <a class="button is-danger unique-font">
                 <nuxt-link class="has-text-light unique-font" :to="{path:'/login'}">Login</nuxt-link>
               </a>
-              <a class="button is-light unique-font">Log in</a>
             </div>
           </div>
         </div>

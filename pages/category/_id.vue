@@ -1,6 +1,11 @@
 <template>
   <div>
-    <div class="container">
+    <div class="container padding-top">
+      <div class="has-text-right">
+        <button class="button is-info unique-font">
+          <NuxtLink class="has-text-white" :to="{ path:'/den'} ">write</NuxtLink>
+        </button>
+      </div>
       <ul id="assumptions_title">
         <li v-for="assumption in assumptions" v-bind:key="assumption.id">
           <div class="tile is-ancestor is-primary padding-top">

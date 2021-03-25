@@ -77,5 +77,6 @@ export default {
     linkify: true,
     breaks: true,
     use: ['markdown-it-div', 'markdown-it-attrs'],
+    runtime: true,
   },
 }

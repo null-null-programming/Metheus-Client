@@ -10,7 +10,7 @@
             <article class="tile is-child notification is-dark">
               <NuxtLink
                 class="tile is-2 unique-font"
-                :to="{path : '/category/'+category.id+'?category='+category.name}"
+                :to="{path : '/category/'+category.id}"
               >{{ category.name }}</NuxtLink>
             </article>
           </div>

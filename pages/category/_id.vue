@@ -8,7 +8,7 @@
               <NuxtLink
                 class="title is-3 unique-font padding-top"
                 key="title"
-                :to="{path: '/assumptions/'+id}"
+                :to="{path: '/assumptions/'+assumption.id}"
               >{{assumption.title}}</NuxtLink>
             </article>
           </div>

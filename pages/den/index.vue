@@ -29,6 +29,6 @@ import { Provide, Model, Component } from 'nuxt-property-decorator'
 export default class den extends Vue {
   name: 'den'
   data: string =
-    '# 正規分布です。 \n  $f(x) = \\frac{1}{\\sqrt {2\\pi \\sigma^2}} \\exp\\Biggl(-\\frac{(x-\\mu)^2}{2\\sigma^2}\\Biggr) \\qquad (-\\infty<x<\\infty)$'
+    '\n  $f(x) = \\frac{1}{\\sqrt {2\\pi \\sigma^2}} \\exp\\Biggl(-\\frac{(x-\\mu)^2}{2\\sigma^2}\\Biggr) \\qquad (-\\infty<x<\\infty)$'
 }
 </script>

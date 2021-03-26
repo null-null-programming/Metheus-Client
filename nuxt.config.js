@@ -61,8 +61,8 @@ export default {
   auth: {
     strategies: {
       auth0: {
-        domain: 'metheus.jp.auth0.com', // 追加
-        client_id: process.env.AUTH_CLIENT_ID, // 追加
+        domain: process.env.AUTH_DOMEIN,
+        client_id: process.env.AUTH_CLIENT_ID,
       },
     },
     redirect: {

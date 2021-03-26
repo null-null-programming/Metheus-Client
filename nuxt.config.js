@@ -80,7 +80,7 @@ export default {
     linkify: true,
     typography: true,
     xhtmlOut: true,
-    use: ['markdown-it-div', 'markdown-it-attrs'],
+    use: ['markdown-it-div', 'markdown-it-attrs', 'markdown-it-katex'],
     runtime: true,
     langPrefix: 'language-',
     quotes: '“”‘’',

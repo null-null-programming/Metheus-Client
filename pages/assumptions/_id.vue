@@ -8,8 +8,9 @@
               <NuxtLink
                 class="title is-3 unique-font padding-top"
                 key="title"
-                :to="{path: '/articles/'+article.id}"
-              >{{article.title}}</NuxtLink>
+                :to="{ path: '/articles/' + article.id }"
+                >{{ article.title }}</NuxtLink
+              >
             </article>
           </div>
         </li>
@@ -17,8 +18,8 @@
     </div>
   </div>
 </template>
-      
-<script lang = "ts" >
+
+<script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 import axios from 'axios'
 
@@ -46,6 +47,4 @@ export default class Assumptions extends Vue {
 }
 </script>
 
-
-  <style lang = "scss" href = "../../assets/css/style.scss" >
-</style>
+<style lang="scss" href="../../assets/css/style.scss"></style>

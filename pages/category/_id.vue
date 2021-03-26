@@ -3,7 +3,9 @@
     <div class="container padding-top">
       <div class="has-text-right">
         <button class="button is-info unique-font">
-          <NuxtLink class="has-text-white" :to="{ path:'/den'} ">write</NuxtLink>
+          <NuxtLink class="has-text-white" :to="{ path: '/den/' + id }"
+            >write</NuxtLink
+          >
         </button>
       </div>
       <ul id="assumptions_title">
@@ -13,8 +15,9 @@
               <NuxtLink
                 class="title is-3 unique-font padding-top"
                 key="title"
-                :to="{path: '/assumptions/'+assumption.id}"
-              >{{assumption.title}}</NuxtLink>
+                :to="{ path: '/assumptions/' + assumption.id }"
+                >{{ assumption.title }}</NuxtLink
+              >
             </article>
           </div>
         </li>
@@ -22,20 +25,19 @@
     </div>
   </div>
 </template>
-      
-<script lang = "ts" >
+
+<script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
+import 'vue-router'
 import axios from 'axios'
 
 @Component({ name: 'Assumptions' })
 export default class Assumptions extends Vue {
-  id: number = 0
   assumptions: any = null
+  id: string = this.$route.params.id
 
-  async AssumptionsFetch(id: number) {
-    const response = await fetch(
-      'http://127.0.0.1:8000/category/' + id.toString()
-    )
+  async AssumptionsFetch() {
+    const response = await fetch('http://127.0.0.1:8000/category/' + this.id)
     if (!response.ok) {
       const err = await response.json()
       throw new Error(err)
@@ -46,12 +48,9 @@ export default class Assumptions extends Vue {
   }
 
   created() {
-    //@ts-ignore
-    this.AssumptionsFetch(this.$route.params.id)
+    this.AssumptionsFetch()
   }
 }
 </script>
 
-
-  <style lang = "scss" href = "../../assets/css/style.scss" >
-</style>
+<style lang="scss" href="../../assets/css/style.scss"></style>

@@ -50,12 +50,14 @@
 <style lang="scss" href="../assets/css/style.scss"></style>
 
 <script>
+
+console.log()
 export default {
   name: 'default',
   methods: {
     loginWithAuthZero: function () {
       this.$auth.loginWith('auth0')
     },
-  },
+  }
 }
 </script>

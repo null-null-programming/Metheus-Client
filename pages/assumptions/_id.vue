@@ -2,7 +2,7 @@
   <div>
     <div class="container padding-top">
       <div class="has-text-right">
-        <button class="button is-info unique-font">
+        <button class="button is-info unique-font" @click="setToken">
           <NuxtLink class="has-text-white" :to="{ path: '/den/' + id }"
             >write</NuxtLink
           >
@@ -53,6 +53,22 @@ export default class Assumptions extends Vue {
     //@ts-ignore
     this.AssumptionsFetch(this.$route.params.id)
   }
+
+  setToken(){
+    //@ts-ignore
+    let token = this.$auth.strategy.token.get()
+    console.log(token)
+    if(typeof token==='boolean'){
+      //@ts-ignore
+      token=this.$auth.strategy.refreshToken.get()
+      console.log(token)
+    }
+    //@ts-ignore
+    this.$auth.strategy.token.set(token)
+    //@ts-ignore
+    console.log(this.$auth.strategy.token.status())
+  }
+
 }
 </script>
 

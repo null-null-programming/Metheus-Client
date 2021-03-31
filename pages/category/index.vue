@@ -9,7 +9,7 @@
           <div class="tile is-ancestor is-primary padding-top">
             <article class="tile is-child notification is-dark">
               <NuxtLink
-                class="tile title is-3 unique-font"
+                class="tile title is-4 unique-font"
                 :to="{path : '/category/'+category.id}"
               >{{ category.name }}</NuxtLink>
             </article>

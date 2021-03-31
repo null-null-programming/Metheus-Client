@@ -13,7 +13,7 @@
           <div class="tile is-ancestor is-primary padding-top">
             <article class="tile is-child notification is-dark">
               <NuxtLink
-                class="title is-3 unique-font padding-top"
+                class="title is-2 unique-font padding-top"
                 key="title"
                 :to="{ path: '/assumptions/' + assumption.id }"
                 >{{ assumption.title }}</NuxtLink

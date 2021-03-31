@@ -3,8 +3,13 @@
   src: url('../font/Press_Start_2P.otf/PressStart2P.ttf') format('truetype');
 }
 
+@font-face{
+  font-family:'PixelMPlus_family';
+  src: url('../font/PixelMPlus_family/PixelMplus12-Regular.ttf') format('truetype');
+}
+
 .unique-font {
-  font-family: 'Press_Start_2P';
+  font-family: 'PixelMPlus_family';
 }
 
 .padding-top {

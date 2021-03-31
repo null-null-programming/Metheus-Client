@@ -6,7 +6,7 @@ module.exports = {
     "font-family-no-missing-generic-family-keyword": [
       true,
       {
-        "ignoreFontFamilies": "Press_Start_2P"
+        "ignoreFontFamilies": "PixelMPlus_family"
       }
     ]
   },

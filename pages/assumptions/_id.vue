@@ -1,5 +1,14 @@
 <template>
   <div>
+    <div class="container padding-top">
+      <div class="has-text-right">
+        <button class="button is-info unique-font">
+          <NuxtLink class="has-text-white" :to="{ path: '/den/' + id }"
+            >write</NuxtLink
+          >
+        </button>
+      </div>
+    </div>
     <div class="container">
       <ul id="articles_title">
         <li v-for="article in articles" v-bind:key="article.id">

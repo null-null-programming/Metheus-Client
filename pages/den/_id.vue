@@ -56,6 +56,17 @@ export default class den extends Vue {
       article: this.article,
     }
 
+    //@ts-ignore
+    let token = this.$auth.strategy.token.get()
+    console.log(token)
+    if(typeof token==='boolean'){
+      //@ts-ignore
+      token=this.$auth.strategy.refreshToken.get()
+      console.log(token)
+    }
+    //@ts-ignore
+    this.$auth.strategy.token.set(token)
+
     const response = await axios
       .post('http://127.0.0.1:8000/articles', post_json)
       .catch((err) => {

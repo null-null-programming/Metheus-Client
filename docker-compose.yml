@@ -1,0 +1,15 @@
+version: "3.2"
+services:
+  frontend:
+    build:
+      context: ./Metheus-Client
+      dockerfile: Dockerfile
+    # env_file:
+    #   - ./Metheus-Client/.env
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./Metheus-Client:/app
+    tty: true
+    stdin_open: true
+    command: npm run dev

@@ -5,9 +5,11 @@
 ## セットアップ
 
 ```bash
-$ npm install
-$ npm run dev
+# コンテナ起動
+docker-compose up
 ```
+
+コンテナが起動したら [http://localhost:3000](http://localhost:3000) にアクセスしてファイル編集を開始する。
 
 ## 使用技術
 

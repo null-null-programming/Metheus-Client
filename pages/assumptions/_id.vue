@@ -48,12 +48,13 @@ export default class Assumptions extends Vue {
     this.articles = await response.json()
 
     console.log('success!,get Articles!')
-  }
+  }  
 
   created() {
     //@ts-ignore
     this.AssumptionsFetch(this.$route.params.id)
   }
+
 }
 </script>
 

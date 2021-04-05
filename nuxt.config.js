@@ -3,7 +3,7 @@ require('dotenv').config()
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'metheus-client',
+    title: 'metheus',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -17,6 +17,10 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [{ src: '~/plugins/amplify.js', ssr: false }],
+
+  router:{
+    middleware:'auth'
+  },
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,

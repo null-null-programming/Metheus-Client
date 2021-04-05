@@ -36,6 +36,7 @@
 import { Provide, Model, Component, Vue } from 'nuxt-property-decorator'
 import '~/node_modules/katex/dist/katex.min.css'
 import 'vue-router'
+import { Auth } from 'aws-amplify'
 import axios from 'axios'
 
 axios.defaults.baseURL = 'http://127.0.0.1:8000'
@@ -85,5 +86,7 @@ export default class den extends Vue {
       this.write()
     }
   }
+
+  middleware: 'auth'
 }
 </script>

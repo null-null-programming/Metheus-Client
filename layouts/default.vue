@@ -31,15 +31,6 @@
         </div>
         <div class="navbar-end">
           <div class="navbar-item">
-            <div class="buttons">
-              <button
-                class="button is-danger unique-font"
-                type="primary"
-                @click="loginWithAuthZero"
-              >
-                Login
-              </button>
-            </div>
           </div>
         </div>
       </div>
@@ -54,10 +45,5 @@
 console.log()
 export default {
   name: 'default',
-  methods: {
-    loginWithAuthZero: function () {
-      this.$auth.loginWith('auth0')
-    },
-  }
 }
 </script>

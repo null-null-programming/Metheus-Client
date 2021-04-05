@@ -19,7 +19,7 @@ export default {
   plugins: [{ src: '~/plugins/amplify.js', ssr: false }],
 
   router:{
-    middleware:'auth'
+   // middleware:'auth'
   },
 
   // Auto import components: https://go.nuxtjs.dev/config-components

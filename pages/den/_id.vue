@@ -1,5 +1,7 @@
 <template>
   <div class="container padding-top">
+    <amplify-authenticator>
+      <nuxt/>
     <div class="columns">
       <div class="column">
         <input
@@ -29,6 +31,7 @@
         <div v-html="$md.render(article)"></div>
       </div>
     </div>
+    </amplify-authenticator>
   </div>
 </template>
 

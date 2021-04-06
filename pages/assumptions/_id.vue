@@ -39,7 +39,7 @@ export default class Assumptions extends Vue {
 
   async AssumptionsFetch(id: number) {
     const response = await fetch(
-      'http://127.0.0.1:8000/assumptions/' + id.toString()
+      ' http://0.0.0.0:8000/assumptions/' + id.toString()
     )
     if (!response.ok) {
       const err = await response.json()

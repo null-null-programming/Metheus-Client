@@ -42,7 +42,7 @@ import 'vue-router'
 import { Auth } from 'aws-amplify'
 import axios from 'axios'
 
-axios.defaults.baseURL = 'http://127.0.0.1:8000'
+axios.defaults.baseURL = 'http://0.0.0.0:8000'
 axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8'
 axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*'
 
@@ -52,6 +52,7 @@ export default class den extends Vue {
   assumption_id: string = this.$route.params.id
   article: string =
     '\n  $f(x) = \\frac{1}{\\sqrt {2\\pi \\sigma^2}} \\exp\\Biggl(-\\frac{(x-\\mu)^2}{2\\sigma^2}\\Biggr) \\qquad (-\\infty<x<\\infty)$'
+  
   async write() {
     let post_json = {
       assumption_id: this.assumption_id,
@@ -60,28 +61,42 @@ export default class den extends Vue {
       article: this.article,
     }
 
-    //@ts-ignore
-    let token = this.$auth.strategy.token.get()
-    console.log(token)
-    if(typeof token==='boolean'){
-      //@ts-ignore
-      token=this.$auth.strategy.refreshToken.get()
-      console.log(token)
-    }
-    //@ts-ignore
-    this.$auth.strategy.token.set(token)
-
-    const response = await axios
-      .post('http://127.0.0.1:8000/articles', post_json)
-      .catch((err) => {
-        return err.response
+    let idToken = null
+     await Auth.currentSession()
+      .then(data => {
+        idToken = data.getIdToken().getJwtToken()
       })
+    
+    console.log(idToken)
+    
+    await axios.post('http://0.0.0.0:8000/articles',post_json,{
+        headers: {
+          "Authorization": idToken
+        }
+      })
+  }
 
-    if (response.status != 200) {
-      console.log('error!')
-    } else {
-      console.log('Success!,you submit article!')
+  async edit() {
+    let post_json = {
+      assumption_id: this.assumption_id,
+      user_id: 0,
+      title: this.title,
+      article: this.article,
     }
+
+    let idToken = null
+     await Auth.currentSession()
+      .then(data => {
+        idToken = data.getIdToken().getJwtToken()
+      })
+    
+    console.log(idToken)
+    
+    await axios.put('http://0.0.0.0:8000/articles',post_json,{
+        headers: {
+          "Authorization": idToken
+        }
+      })
   }
 
   submit() {

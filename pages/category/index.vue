@@ -28,7 +28,7 @@ export default class CategoryList extends Vue {
   categories: any = null
 
   async Fetch() {
-    const response = await fetch('http://127.0.0.1:8000/category')
+    const response = await fetch('http://0.0.0.0:8000/category')
     if (!response.ok) {
       const err = await response.json()
       throw new Error(err)

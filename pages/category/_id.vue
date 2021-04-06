@@ -29,7 +29,7 @@ export default class Assumptions extends Vue {
   id: string = this.$route.params.id
 
   async AssumptionsFetch() {
-    const response = await fetch('http://127.0.0.1:8000/category/' + this.id)
+    const response = await fetch('http://0.0.0.0:8000/category/' + this.id)
     if (!response.ok) {
       const err = await response.json()
       throw new Error(err)

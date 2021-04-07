@@ -15,7 +15,7 @@
     <div class="container">
       <ul id="articles_title">
         <li v-for="article in articles" v-bind:key="article.id">
-          <div class="tile is-ancestor is-primary padding-top">
+          <div class="tile is-ancestor is-primary padding-top smart-width">
             <article class="tile is-child notification is-dark">
               <NuxtLink
                 class="title is-3 unique-font padding-top"
@@ -33,7 +33,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import axios from 'axios'
+import $ from 'jquery'
 
 @Component({ name: 'Assumptions' })
 export default class Assumptions extends Vue {
@@ -52,6 +52,18 @@ export default class Assumptions extends Vue {
 
     console.log('success!,get Articles!')
   }  
+
+  fav(){
+    let $btn = $(".Likes-Icon")
+    if ($btn.hasClass('on')) {
+      $btn.removeClass('on');
+      $btn.removeClass("HeartAnimation");
+      $btn.css("background-position","left");
+    } else {
+      $btn.addClass('on');
+      $btn.addClass("HeartAnimation");
+    }
+  }
 
   created() {
     //@ts-ignore

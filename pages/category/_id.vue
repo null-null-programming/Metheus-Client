@@ -9,7 +9,7 @@
     </div>
       <ul id="assumptions_title">
         <li v-for="assumption in assumptions" v-bind:key="assumption.id">
-          <div class="tile is-ancestor is-primary padding-top">
+          <div class="tile is-ancestor is-primary padding-top pc-width">
             <article class="tile is-child notification is-dark">
               <NuxtLink
                 class="title is-2 unique-font padding-top"

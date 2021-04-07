@@ -15,8 +15,6 @@
 import { Provide, Model, Component, Vue } from 'nuxt-property-decorator'
 import '~/node_modules/katex/dist/katex.min.css'
 import 'vue-router'
-import { Auth } from 'aws-amplify'
-import axios from 'axios'
 
 @Component({ name: 'article' })
 export default class den extends Vue {

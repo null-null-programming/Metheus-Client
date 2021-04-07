@@ -39,6 +39,7 @@
   </div>
 </template>
 <style lang="scss" href="../assets/css/style.scss"></style>
+<script href="../assets/script/script.js"></script>
 
 <script>
 

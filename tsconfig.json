@@ -12,11 +12,13 @@
     "experimentalDecorators": true,
     "baseUrl": ".",
     "strictPropertyInitialization": false,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "paths": {
       "~/*": ["./*"],
       "@/*": ["./*"]
     },
-    "types": ["@nuxt/types", "@nuxtjs/axios", "@nuxt/content", "@types/node","@nuxtjs/auth-next",]
+    "types": ["@nuxt/types", "@nuxtjs/axios", "@nuxt/content", "@types/node"]
   },
   "exclude": ["node_modules", ".nuxt", "dist"]
 }

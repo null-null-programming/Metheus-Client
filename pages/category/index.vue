@@ -6,13 +6,22 @@
     <div class="container">
       <ul id="categoryTitle">
         <li v-for="category in categories" v-bind:key="category.id">
-          <div class="tile is-ancestor is-primary padding-top">
+          <div class="columns padding-top">
+            <div class="colum">
+          <div class="tile is-ancestor is-primary padding-top pc-width">
             <article class="tile is-child notification is-dark">
               <NuxtLink
-                class="tile title is-4 unique-font"
+                class="tile title unique-font"
                 :to="{path : '/category/'+category.id}"
               >{{ category.name }}</NuxtLink>
             </article>
+            </div>
+            </div>
+          <div class="colum" style="padding-left:30px;" >
+              <div class="Likes">
+                <div class="Likes-Icon"  @click="fav()"></div>
+              </div>
+          </div>
           </div>
         </li>
       </ul>
@@ -21,7 +30,7 @@
 </template>
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import axios from 'axios'
+import $ from 'jquery';
 
 @Component({ name: 'CategoryList' })
 export default class CategoryList extends Vue {
@@ -35,6 +44,18 @@ export default class CategoryList extends Vue {
     }
     this.categories = await response.json()
     console.log('success!')
+  }
+
+  fav(){
+    let $btn = $(".Likes-Icon")
+    if ($btn.hasClass('on')) {
+      $btn.removeClass('on');
+      $btn.removeClass("HeartAnimation");
+      $btn.css("background-position","left");
+    } else {
+      $btn.addClass('on');
+      $btn.addClass("HeartAnimation");
+    }
   }
 
   created() {

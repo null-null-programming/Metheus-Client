@@ -16,7 +16,47 @@
   padding-left: 20px;
 }
 
+.padding-right{
+  padding-right: 20px;
+}
+
 .form-height {
   height: 2048px;
+}
+
+.pc-width{
+  width:800px;
+}
+
+.Likes{
+  position: relative;
+}
+.Likes-Icon{
+  position: absolute;
+  left: -48px;
+  background: url("../static/web_heart_animation.png");
+  background-position: left;
+  background-size: 2900%;
+  background-repeat: no-repeat;
+  width: 105px;
+  height: 105px;
+}
+
+@keyframes heartblast {
+  0% {
+    background-position: left;
+  }
+  100% {
+    background-position: right;
+  }
+}
+
+.HeartAnimation {
+  animation-name: heartblast;
+  display: inline-block;
+  background-position: right;
+  animation-duration: .8s;
+  animation-iteration-count: 1;
+  animation-timing-function: steps(28);
 }
 

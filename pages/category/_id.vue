@@ -1,5 +1,12 @@
 <template>
   <div class="container padding-top">
+    <div>
+    <button class="button is-danger unique-font">
+      <NuxtLink class="title is-2 has-text-white" :to="{ path :'/category'}">
+      Back
+      </NuxtLink>
+    </button>
+    </div>
       <ul id="assumptions_title">
         <li v-for="assumption in assumptions" v-bind:key="assumption.id">
           <div class="tile is-ancestor is-primary padding-top">

@@ -13,7 +13,6 @@
     "baseUrl": ".",
     "strictPropertyInitialization": false,
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
     "paths": {
       "~/*": ["./*"],
       "@/*": ["./*"]

@@ -19,7 +19,7 @@
             </div>
           <div class="colum" style="padding-left:30px;" >
               <div class="Likes" v-if="categories.length>1">
-                <div class="{index}"  @click="fav(category.id)"></div>
+                <div class="LikesIcon" v-bind:class=animation[index]  @click="fav(index)"></div>
               </div>
           </div>
           </div>
@@ -30,11 +30,14 @@
 </template>
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import $ from 'jquery';
+import axios from 'axios'
+import { Auth } from 'aws-amplify'
 
 @Component({ name: 'CategoryList' })
 export default class CategoryList extends Vue {
   categories: any = null
+  animation: Array<string> =[]
+  flag: Array<boolean> = []
 
   async Fetch() {
     const response = await fetch('http://0.0.0.0:8000/category')
@@ -46,20 +49,52 @@ export default class CategoryList extends Vue {
     console.log('success!')
   }
 
-  fav(index:string){
-    let $btn = $("."+index)
-    if ($btn.hasClass('on')) {
-      $btn.removeClass('on');
-      $btn.removeClass("HeartAnimation");
-      $btn.css("background-position","left");
+  async getFavData() {
+    let idToken = null
+    console.log('getFavData()')
+
+     try{
+     await Auth.currentSession()
+      .then(data => {
+        idToken = data.getIdToken().getJwtToken()
+      })}catch(error){
+        console.log(error)
+        return
+      } 
+
+    await axios.get('http://0.0.0.0:8000/like',{
+        headers: {
+          "Authorization": idToken
+        }
+      }).then(response => {
+         this.flag=response.data
+      }).catch(error=>{
+        console.log(error)
+        return
+      })
+    
+    for(let index in this.flag){
+      if(this.flag[index]===true){
+        this.$set(this.animation,index,"HeartAnimation")
+      }else{
+        this.$set(this.animation,index,"")
+      }
+    }
+ }
+
+  fav(index:number){
+    if (this.flag[index]) {
+      this.$set(this.flag,index,false)
+      this.animation[index]="background-position:left"
     } else {
-      $btn.addClass('on');
-      $btn.addClass("HeartAnimation");
+      this.$set(this.flag,index,true)
     }
   }
 
+
   created() {
     this.Fetch()
+    this.getFavData()
   }
 }
 </script>

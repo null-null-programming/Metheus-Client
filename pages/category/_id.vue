@@ -23,9 +23,10 @@
           </div>
           <div class="colum" style="padding-left:30px;">
             <div class="Likes">
-                <div class="LikesIcon" v-bind:class="{'HeartAnimation':flag[index]}" @click="fav(index)"></div>
+                <div class="LikesIcon" v-bind:class=animation[index] @click="fav(index)"></div>
               </div>
           </div>
+          
           </div>
         </li>
       </ul>
@@ -36,7 +37,6 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 import 'vue-router'
-import $ from 'jquery';
 import axios from 'axios'
 import { Auth } from 'aws-amplify'
 
@@ -45,8 +45,8 @@ import { Auth } from 'aws-amplify'
 export default class Assumptions extends Vue {
   assumptions: any = null
   id: string = this.$route.params.id
-  //TODO MariaDB
-  flag: Array<boolean> =[false,false,false,false,false,false,false,false,false,false]
+  flag: Array<boolean>
+  animation: Array<string> =[]
 
   async AssumptionsFetch() {
     const response = await fetch('http://0.0.0.0:8000/category/' + this.id)
@@ -56,11 +56,6 @@ export default class Assumptions extends Vue {
     }
     this.assumptions = await response.json()
   }
-
-
-toBoolean(booleanStr: string): boolean {
-    return booleanStr.toLowerCase() === "true";
-}
 
 async getFavData() {
     let idToken = null
@@ -75,64 +70,38 @@ async getFavData() {
         return
       } 
 
-      console.log(idToken)
-    let favDict
     await axios.get('http://0.0.0.0:8000/like',{
         headers: {
           "Authorization": idToken
         }
       }).then(response => {
-        //@ts-ignore
-         favDict=response.data
+         this.flag=response.data
       }).catch(error=>{
         console.log(error)
         return
       })
-
-    console.log(favDict)
-
-    for(let index in favDict){
-      if(this.toBoolean(favDict[index])==true){
-        this.$set(this.flag,index,true)
+    
+    for(let index in this.flag){
+      if(this.flag[index]===true){
+        this.$set(this.animation,index,"HeartAnimation")
       }else{
-        this.$set(this.flag,index,false)
+        this.$set(this.animation,index,"")
       }
     }
-
-    console.log(this.flag)
-    console.log('hye')
  }
 
   fav(index:number){
-    let $btn = $("LikesIcon")
     if (this.flag[index]) {
       this.$set(this.flag,index,false)
-      $btn.css("background-position","left");
+      this.animation[index]="background-position:left"
     } else {
       this.$set(this.flag,index,true)
-    }
-  }
-
-  setFavFunc(index:number){
-    let $btn = $("LikesIcon")
-    this.$set(this.flag,index,true)
-  }
-
-  setFav(){
-    for(let index in this.flag){
-      if(this.flag[index]==true){
-        this.$set(this.flag,index,true)
-      }
     }
   }
 
   created() {
     this.AssumptionsFetch()
     this.getFavData()
-  }
-
-  mounted(){
-    this.setFav()
   }
 }
 </script>

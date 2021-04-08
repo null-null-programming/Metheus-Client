@@ -35,7 +35,7 @@
             </div>
           <div class="colum" style="padding-left:30px;">
             <div class="Likes">
-                <div class="LikesIcon" v-bind:class="{'HeartAnimation':flag[index]}" @click="fav(index)"></div>
+                <div class="LikesIcon" v-bind:class="animation[index]" @click="fav(index)"></div>
               </div>
           </div>
           </div>
@@ -47,18 +47,19 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import $ from 'jquery'
+import axios from 'axios'
+import { Auth } from 'aws-amplify'
 
 @Component({ name: 'Assumptions' })
 export default class Assumptions extends Vue {
   articles: any = null
   id: string=this.$route.params.id.toString()
-  //TODO MariaDB
-  flag: Array<boolean> = [false,false,false,false,false,false,false,false,false]
+  animation: Array<string> = []
+  flag: Array<boolean> = []
 
-  async AssumptionsFetch(id: number) {
+  async AssumptionsFetch() {
     const response = await fetch(
-      ' http://0.0.0.0:8000/assumptions/' + id.toString()
+      ' http://0.0.0.0:8000/assumptions/' + this.id
     )
     if (!response.ok) {
       const err = await response.json()
@@ -67,24 +68,54 @@ export default class Assumptions extends Vue {
     this.articles = await response.json()
 
     console.log('success!,get Articles!')
-  }  
+  }
 
   
+async getFavData() {
+    let idToken = null
+    console.log('getFavData()')
+
+     try{
+     await Auth.currentSession()
+      .then(data => {
+        idToken = data.getIdToken().getJwtToken()
+      })}catch(error){
+        console.log(error)
+        return
+      } 
+
+    await axios.get('http://0.0.0.0:8000/like',{
+        headers: {
+          "Authorization": idToken
+        }
+      }).then(response => {
+         this.flag=response.data
+      }).catch(error=>{
+        console.log(error)
+        return
+      })
+    
+    for(let index in this.flag){
+      if(this.flag[index]===true){
+        this.$set(this.animation,index,"HeartAnimation")
+      }else{
+        this.$set(this.animation,index,"")
+      }
+    }
+ }
+
   fav(index:number){
-    console.log('hello')
-    let $btn = $("LikesIcon")
     if (this.flag[index]) {
       this.$set(this.flag,index,false)
-      $btn.css("background-position","left");
+      this.animation[index]="background-position:left"
     } else {
       this.$set(this.flag,index,true)
     }
-    console.log(this.flag[index])
   }
 
   created() {
-    //@ts-ignore
-    this.AssumptionsFetch(this.$route.params.id)
+    this.AssumptionsFetch()
+    this.getFavData()
   }
 
 }

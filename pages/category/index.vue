@@ -51,7 +51,6 @@ export default class CategoryList extends Vue {
 
   async getFavData() {
     let idToken = null
-    console.log('getFavData()')
 
      try{
      await Auth.currentSession()
@@ -82,12 +81,49 @@ export default class CategoryList extends Vue {
     }
  }
 
+ async setFav(index: number,nextFlag: boolean){
+    let idToken = null
+    
+     try{
+     await Auth.currentSession()
+      .then(data => {
+        idToken = data.getIdToken().getJwtToken()
+      })}catch(error){
+        console.log(error)
+        return
+      } 
+
+    await axios.put('http://0.0.0.0:8000/like',{
+        headers: {
+          "Authorization": idToken
+        }
+      }).then(response => {
+         this.flag=response.data
+      }).catch(error=>{
+        console.log(error)
+        return
+      })
+    
+    for(let index in this.flag){
+      if(this.flag[index]===true){
+        this.$set(this.animation,index,"HeartAnimation")
+      }else{
+        this.$set(this.animation,index,"")
+      }
+    }
+ }
+
+ 
+
+   //TODO　APIと通信してDBの情報を更新する。
   fav(index:number){
     if (this.flag[index]) {
       this.$set(this.flag,index,false)
-      this.animation[index]="background-position:left"
+      this.$set(this.animation,index,"")
+      this.$set(this.animation,index,"background-position:left")
     } else {
       this.$set(this.flag,index,true)
+      this.$set(this.animation,index,"HeartAnimation")
     }
   }
 

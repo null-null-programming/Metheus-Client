@@ -22,7 +22,7 @@
             </article>
           </div>
           <div class="colum" style="padding-left:30px;">
-            <div class="Likes">
+            <div class="Likes" v-if="assumptions.length>1">
                 <div class="LikesIcon" v-bind:class=animation[index] @click="fav(index)"></div>
               </div>
           </div>
@@ -70,7 +70,7 @@ async getFavData() {
         return
       } 
 
-    await axios.get('http://0.0.0.0:8000/like',{
+    await axios.get('http://0.0.0.0:8000/like'{
         headers: {
           "Authorization": idToken
         }
@@ -90,12 +90,15 @@ async getFavData() {
     }
  }
 
+   //TODO　APIと通信してDBの情報を更新する。
   fav(index:number){
     if (this.flag[index]) {
       this.$set(this.flag,index,false)
-      this.animation[index]="background-position:left"
+      this.$set(this.animation,index,"")
+      this.$set(this.animation,index,"background-position:left")
     } else {
       this.$set(this.flag,index,true)
+      this.$set(this.animation,index,"HeartAnimation")
     }
   }
 

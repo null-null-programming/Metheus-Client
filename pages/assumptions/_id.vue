@@ -34,7 +34,7 @@
             </article>
             </div>
           <div class="colum" style="padding-left:30px;">
-            <div class="Likes">
+            <div class="Likes" v-if="articles.length>1">
                 <div class="LikesIcon" v-bind:class="animation[index]" @click="fav(index)"></div>
               </div>
           </div>
@@ -107,9 +107,11 @@ async getFavData() {
   fav(index:number){
     if (this.flag[index]) {
       this.$set(this.flag,index,false)
-      this.animation[index]="background-position:left"
+      this.$set(this.animation,index,"")
+      this.$set(this.animation,index,"background-position:left")
     } else {
       this.$set(this.flag,index,true)
+      this.$set(this.animation,index,"HeartAnimation")
     }
   }
 

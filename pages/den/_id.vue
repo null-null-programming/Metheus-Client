@@ -1,5 +1,12 @@
 <template>
   <div class="container padding-top">
+    <div>
+    <button class="button is-danger unique-font">
+      <NuxtLink class="title is-2 has-text-white" :to="{ path :'/category'}">
+      Back
+      </NuxtLink>
+    </button>
+    </div>
     <div class="columns">
       <div class="column">
         <input
@@ -9,10 +16,20 @@
           v-model="title"
         />
       </div>
+
+      <button class="button is-danger unique-font" @click="submit">
+          <span class="submit">Submit</span>
+          <span class="loading"><i class="fa fa-refresh"></i></span>
+          <span class="check"><i class="fa fa-check"></i></span>
+      </button>
+
+
       <div class="column">
-        <button class="button is-danger unique-font" @click="submit">
-          Submit
-        </button>
+        <button class="button is-danger unique-font">
+          <span class="submit">Submit</span>
+          <span class="loading"><i class="fa fa-refresh"></i></span>
+          <span class="check"><i class="fa fa-check"></i></span>
+      </button>
       </div>
     </div>
     <div class="columns padding-top">

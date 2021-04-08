@@ -15,8 +15,9 @@
     <div class="container">
       <ul id="articles_title">
         <li v-for="article in articles" v-bind:key="article.id">
-          <div class="tile is-ancestor is-primary padding-top smart-width">
-            <article class="tile is-child notification is-dark">
+          <div class="columns padding-top">
+          <div class="colum tile is-ancestor is-primary padding-top pcs-width">
+            <article class="tile is-child notification is-white">
               <NuxtLink
                 class="title is-3 unique-font padding-top"
                 key="title"
@@ -24,6 +25,12 @@
                 >{{ article.title }}</NuxtLink
               >
             </article>
+            </div>
+          <div class="colum" style="padding-left:30px;" >
+              <div class="Likes" v-if="articles.length>1">
+                <div class="Likes-Icon"  @click="fav()"></div>
+              </div>
+          </div>
           </div>
         </li>
       </ul>

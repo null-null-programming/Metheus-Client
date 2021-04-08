@@ -5,11 +5,11 @@
     </div>
     <div class="container">
       <ul id="categoryTitle">
-        <li v-for="category in categories" v-bind:key="category.id">
+        <li v-for="(category,index) in categories" v-bind:key="category.id">
           <div class="columns padding-top">
             <div class="colum">
           <div class="tile is-ancestor is-primary padding-top pc-width">
-            <article class="tile is-child notification is-dark">
+            <article class="tile is-child notification is-white">
               <NuxtLink
                 class="tile title unique-font"
                 :to="{path : '/category/'+category.id}"
@@ -18,8 +18,8 @@
             </div>
             </div>
           <div class="colum" style="padding-left:30px;" >
-              <div class="Likes">
-                <div class="Likes-Icon"  @click="fav()"></div>
+              <div class="Likes" v-if="categories.length>1">
+                <div class="{index}"  @click="fav(category.id)"></div>
               </div>
           </div>
           </div>
@@ -46,8 +46,8 @@ export default class CategoryList extends Vue {
     console.log('success!')
   }
 
-  fav(){
-    let $btn = $(".Likes-Icon")
+  fav(index:string){
+    let $btn = $("."+index)
     if ($btn.hasClass('on')) {
       $btn.removeClass('on');
       $btn.removeClass("HeartAnimation");

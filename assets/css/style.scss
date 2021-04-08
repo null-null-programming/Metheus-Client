@@ -16,6 +16,10 @@
   padding-left: 20px;
 }
 
+.liked-padding-left{
+  padding-left:30px;
+}
+
 .padding-right{
   padding-right: 20px;
 }
@@ -31,7 +35,10 @@
 .Likes{
   position: relative;
 }
-.Likes-Icon{
+
+//li[class^="Likes-Icon-"]{
+
+.LikesIcon{
   position: absolute;
   left: -48px;
   background: url("../static/web_heart_animation.png");
@@ -41,6 +48,8 @@
   width: 105px;
   height: 105px;
 }
+
+
 
 @keyframes heartblast {
   0% {
@@ -59,4 +68,6 @@
   animation-iteration-count: 1;
   animation-timing-function: steps(28);
 }
+
+
 

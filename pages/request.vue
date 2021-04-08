@@ -1,6 +1,6 @@
 <template>
+<amplify-authenticator>
   <div class="container padding-top">
-    <amplify-authenticator>
       <nuxt/>
     <div class="columns">
       <div class="column">
@@ -31,8 +31,8 @@
         <div v-html="$md.render(article)"></div>
       </div>
     </div>
-    </amplify-authenticator>
   </div>
+</amplify-authenticator>
 </template>
 
 <script lang="ts">
@@ -54,7 +54,6 @@ export default class den extends Vue {
   async write() {
     let post_json = {
       assumption_id: this.assumption_id,
-      user_id: 0,
       title: this.title,
       article: this.article,
     }
@@ -77,7 +76,6 @@ export default class den extends Vue {
   async edit() {
     let post_json = {
       assumption_id: this.assumption_id,
-      user_id: 0,
       title: this.title,
       article: this.article,
     }

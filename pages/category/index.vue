@@ -59,7 +59,6 @@ export default class CategoryList extends Vue {
   }
 
   created() {
-    console.log('categories:' + this.categories)
     this.Fetch()
   }
 }

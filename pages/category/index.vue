@@ -17,10 +17,12 @@
             </article>
             </div>
             </div>
-          <div class="colum" style="padding-left:30px;" >
-              <div class="Likes" v-if="categories.length>1">
-                <div class="LikesIcon" v-bind:class=animation[index]  @click="fav(index)"></div>
+            <div v-if="signed_in">
+          <div class="colum" style="padding-left:30px;" v-if="categories&&categories.length>1">
+            <div class="Likes">
+                <div class="LikesIcon" v-bind:class=animation[index] @click="fav(index)"></div>
               </div>
+          </div>
           </div>
           </div>
         </li>
@@ -38,6 +40,7 @@ export default class CategoryList extends Vue {
   categories: any = null
   animation: Array<string> =[]
   flag: Array<boolean> = []
+  signed_in: boolean = false
 
   async Fetch() {
     const response = await fetch('http://0.0.0.0:8000/category')
@@ -127,9 +130,19 @@ export default class CategoryList extends Vue {
     }
   }
 
+  async loginFlag(){
+     this.signed_in=true
+     await Auth.currentUserInfo()
+    .then(data => this.signed_in = Boolean(data))
+    .catch(err => console.log(err))
+    console.log(this.signed_in)
+    return this.signed_in
+  }
+
 
   created() {
     this.Fetch()
+    this.loginFlag()
     this.getFavData()
   }
 }

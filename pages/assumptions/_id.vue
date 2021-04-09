@@ -33,9 +33,11 @@
               >
             </article>
             </div>
-          <div class="colum" style="padding-left:30px;">
-            <div class="Likes" v-if="articles.length>1">
-                <div class="LikesIcon" v-bind:class="animation[index]" @click="fav(index)"></div>
+          <div v-if="signed_in">
+          <div class="colum" style="padding-left:30px;" v-if="articles&&articles.length>1">
+            <div class="Likes">
+                <div class="LikesIcon" v-bind:class=animation[index] @click="fav(index)"></div>
+              </div>
               </div>
           </div>
           </div>
@@ -56,6 +58,7 @@ export default class Assumptions extends Vue {
   id: string=this.$route.params.id.toString()
   animation: Array<string> = []
   flag: Array<boolean> = []
+  signed_in: boolean =false
 
   async AssumptionsFetch() {
     const response = await fetch(
@@ -115,8 +118,18 @@ async getFavData() {
     }
   }
 
+  async loginFlag(){
+     this.signed_in = false
+     await Auth.currentUserInfo()
+    .then(data => this.signed_in = Boolean(data))
+    .catch(err => console.log(err))
+    console.log(this.signed_in)
+    return this.signed_in
+  }
+
   created() {
     this.AssumptionsFetch()
+    this.loginFlag()
     this.getFavData()
   }
 

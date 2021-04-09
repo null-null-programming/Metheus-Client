@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav
-      class="navbar has-background-dark"
+      class="navbar has-background-white	"
       role="navigation"
       aria-label="main navigation"
     >

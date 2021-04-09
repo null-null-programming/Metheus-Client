@@ -1,30 +1,30 @@
 <template>
   <div>
     <nav
-      class="navbar has-background-dark"
+      class="navbar has-background-white"
       role="navigation"
       aria-label="main navigation"
     >
-      <div class="navbar-brand">
+      <div class="title is-1 navbar-brand has-text-danger-dark unique-font">
         <NuxtLink class="navbar-item" :to="{ path: '/' }">
-          <img src="../assets/static/apple.png" width="40" height="40" />
+          Mehteus
         </NuxtLink>
       </div>
 
       <div id="metheusNavbar" class="navbar-menu">
-        <div class="navbar-start">
+        <div class="navbar-start title is-3">
           <NuxtLink
-            class="navbar-item has-text-light unique-font"
+            class="navbar-item has-text-black-ter unique-font"
             :to="{ path: '/' }"
             >Home</NuxtLink
           >
           <NuxtLink
-            class="navbar-item has-text-light unique-font"
+            class="navbar-item has-text-black-ter unique-font"
             :to="{ path: '/category' }"
             >Category</NuxtLink
           >
           <NuxtLink
-            class="navbar-item has-text-light unique-font"
+            class="navbar-item has-text-black-ter unique-font"
             :to="{ path: '/request' }"
             >Request</NuxtLink
           >
@@ -42,8 +42,6 @@
 <script href="../assets/script/script.js"></script>
 
 <script>
-
-console.log()
 export default {
   name: 'default',
 }

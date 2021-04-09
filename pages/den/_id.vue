@@ -8,7 +8,7 @@
       </NuxtLink>
     </button>
     </div>
-    <div class="columns">
+    <div class="columns padding-top">
       <div class="column">
         <input
           class="input is-info"
@@ -17,15 +17,7 @@
           v-model="title"
         />
       </div>
-
-      <button class="button is-danger unique-font" @click="submit">
-          <span class="submit">Submit</span>
-          <span class="loading"><i class="fa fa-refresh"></i></span>
-          <span class="check"><i class="fa fa-check"></i></span>
-      </button>
-
-
-      <div class="column">
+      <div class="column is-4">
         <button class="button is-danger unique-font">
           <span class="submit">Submit</span>
           <span class="loading"><i class="fa fa-refresh"></i></span>

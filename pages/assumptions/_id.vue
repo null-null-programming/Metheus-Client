@@ -107,14 +107,39 @@ async getFavData() {
     }
  }
 
-  fav(index:number){
+ async put_fav_data(flag:boolean,id:number){
+    let idToken = null
+    
+     try{
+     await Auth.currentSession()
+      .then(data => {
+        idToken = data.getIdToken().getJwtToken()
+      })}catch(error){
+        console.log(error)
+        return
+      } 
+
+    const response=await axios.put('http://0.0.0.0:8000/like',{"flag":flag,"id":id},{
+      headers: {
+        "Authorization": idToken
+      }
+    }).then(data=>{
+      console.log(data)
+    })
+  }
+
+  
+    //TODO　APIと通信してDBの情報を更新する。
+  fav(index:number,id:number){
     if (this.flag[index]) {
       this.$set(this.flag,index,false)
       this.$set(this.animation,index,"")
       this.$set(this.animation,index,"background-position:left")
+      this.put_fav_data(false,id)
     } else {
       this.$set(this.flag,index,true)
       this.$set(this.animation,index,"HeartAnimation")
+      this.put_fav_data(true,id)
     }
   }
 

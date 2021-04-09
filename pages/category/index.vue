@@ -20,7 +20,7 @@
             <div v-if="signed_in">
           <div class="colum" style="padding-left:30px;" v-if="categories&&categories.length>1">
             <div class="Likes">
-                <div class="LikesIcon" v-bind:class=animation[index] @click="fav(index)"></div>
+                <div class="LikesIcon" v-bind:class=animation[index] @click="fav(index,category.id)"></div>
               </div>
           </div>
           </div>
@@ -96,7 +96,7 @@ export default class CategoryList extends Vue {
         return
       } 
 
-    await axios.put('http://0.0.0.0:8000/like',{
+    await axios.get('http://0.0.0.0:8000/like',{
         headers: {
           "Authorization": idToken
         }
@@ -116,17 +116,39 @@ export default class CategoryList extends Vue {
     }
  }
 
+  async put_fav_data(flag:boolean,id:number){
+    let idToken = null
+    
+     try{
+     await Auth.currentSession()
+      .then(data => {
+        idToken = data.getIdToken().getJwtToken()
+      })}catch(error){
+        console.log(error)
+        return
+      } 
+
+    const response=await axios.put('http://0.0.0.0:8000/like',{"flag":flag,"id":id},{
+      headers: {
+        "Authorization": idToken
+      }
+    }).then(data=>{
+      console.log(data)
+    })
+  }
  
 
    //TODO　APIと通信してDBの情報を更新する。
-  fav(index:number){
+  fav(index:number,id:number){
     if (this.flag[index]) {
       this.$set(this.flag,index,false)
       this.$set(this.animation,index,"")
       this.$set(this.animation,index,"background-position:left")
+      this.put_fav_data(false,id)
     } else {
       this.$set(this.flag,index,true)
       this.$set(this.animation,index,"HeartAnimation")
+      this.put_fav_data(true,id)
     }
   }
 

@@ -33,11 +33,9 @@
               >
             </article>
             </div>
-          <div v-if="signed_in">
-          <div class="colum" style="padding-left:30px;" v-if="articles&&articles.length>1">
-            <div class="Likes">
-                <div class="LikesIcon" v-bind:class=animation[index] @click="fav(index)"></div>
-              </div>
+          <div class="colum" style="padding-left:30px;">
+            <div class="Likes" v-if="articles.length>1">
+                <div class="LikesIcon" v-bind:class="animation[index]" @click="fav(index)"></div>
               </div>
           </div>
           </div>
@@ -58,7 +56,6 @@ export default class Assumptions extends Vue {
   id: string=this.$route.params.id.toString()
   animation: Array<string> = []
   flag: Array<boolean> = []
-  signed_in: boolean =false
 
   async AssumptionsFetch() {
     const response = await fetch(
@@ -107,54 +104,20 @@ async getFavData() {
     }
  }
 
- async put_fav_data(flag:boolean,id:number){
-    let idToken = null
-    
-     try{
-     await Auth.currentSession()
-      .then(data => {
-        idToken = data.getIdToken().getJwtToken()
-      })}catch(error){
-        console.log(error)
-        return
-      } 
-
-    const response=await axios.put('http://0.0.0.0:8000/like',{"flag":flag,"id":id},{
-      headers: {
-        "Authorization": idToken
-      }
-    }).then(data=>{
-      console.log(data)
-    })
-  }
-
-  
-    //TODO　APIと通信してDBの情報を更新する。
-  fav(index:number,id:number){
+  //TODO　APIと通信してDBの情報を更新する。
+  fav(index:number){
     if (this.flag[index]) {
       this.$set(this.flag,index,false)
       this.$set(this.animation,index,"")
       this.$set(this.animation,index,"background-position:left")
-      this.put_fav_data(false,id)
     } else {
       this.$set(this.flag,index,true)
       this.$set(this.animation,index,"HeartAnimation")
-      this.put_fav_data(true,id)
     }
-  }
-
-  async loginFlag(){
-     this.signed_in = false
-     await Auth.currentUserInfo()
-    .then(data => this.signed_in = Boolean(data))
-    .catch(err => console.log(err))
-    console.log(this.signed_in)
-    return this.signed_in
   }
 
   created() {
     this.AssumptionsFetch()
-    this.loginFlag()
     this.getFavData()
   }
 

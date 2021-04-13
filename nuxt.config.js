@@ -3,7 +3,7 @@ require('dotenv').config()
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'metheus-client',
+    title: 'metheus',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -16,7 +16,11 @@ export default {
   css: ['bulma', { src: '~assets/css/style.scss', lang: 'scss' }],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: [{ src: '~/plugins/amplify.js', ssr: false }],
+
+  router:{
+   // middleware:'auth'
+  },
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -29,7 +33,7 @@ export default {
     '@nuxtjs/stylelint-module',
   ],
   
-  mode:'spa',
+  ssr:false,
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
@@ -59,20 +63,6 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
 
-  auth: {
-    strategies: {
-      auth0: {
-        domain: process.env.AUTH_DOMAIN,
-        clientId: process.env.AUTH_CLIENT_ID,
-      },
-    },
-    redirect: {
-      login: '/', // 未ログイン時のリダイレクト先
-      logout: '/', // ログアウト処理を実行した直後のリダイレクト先
-      callback: '/', // コールバックURL
-      home: '/', // ログイン後に遷移するページ
-    },
-  },
   markdownit: {
     preset: 'default',
     injected: true,

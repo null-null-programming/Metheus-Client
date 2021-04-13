@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-metheusclient-dev-124941-authRole",
+      "UnauthRoleArn": "arn:aws:iam::628497307973:role/amplify-metheusclient-dev-124941-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::628497307973:role/amplify-metheusclient-dev-124941-authRole",
+      "Region": "us-west-2",
+      "DeploymentBucketName": "amplify-metheusclient-dev-124941-deployment",
+      "UnauthRoleName": "amplify-metheusclient-dev-124941-unauthRole",
+      "StackName": "amplify-metheusclient-dev-124941",
+      "StackId": "arn:aws:cloudformation:us-west-2:628497307973:stack/amplify-metheusclient-dev-124941/f6c451e0-95c1-11eb-bb91-0a0320ad966b",
+      "AmplifyAppId": "d3egktvqiz85dh"
+    },
+    "categories": {
+      "auth": {
+        "metheusclient8dd8afa2": {}
+      }
+    }
+  }
+}

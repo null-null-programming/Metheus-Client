@@ -5,14 +5,25 @@
     </div>
     <div class="container">
       <ul id="categoryTitle">
-        <li v-for="category in categories" v-bind:key="category.id">
-          <div class="tile is-ancestor is-primary padding-top">
-            <article class="tile is-child notification is-dark">
+        <li v-for="(category,index) in categories" v-bind:key="category.id">
+          <div class="columns padding-top">
+            <div class="colum">
+          <div class="tile is-ancestor is-primary padding-top pc-width">
+            <article class="tile is-child notification is-white">
               <NuxtLink
-                class="tile title is-4 unique-font"
+                class="tile title unique-font"
                 :to="{path : '/category/'+category.id}"
               >{{ category.name }}</NuxtLink>
             </article>
+            </div>
+            </div>
+            <div v-if="signed_in">
+          <div class="colum" style="padding-left:30px;" v-if="categories&&categories.length>1">
+            <div class="Likes">
+                <div class="LikesIcon" v-bind:class=animation[index] @click="fav(index,category.id)"></div>
+              </div>
+          </div>
+          </div>
           </div>
         </li>
       </ul>
@@ -22,13 +33,17 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
 import axios from 'axios'
+import { Auth } from 'aws-amplify'
 
 @Component({ name: 'CategoryList' })
 export default class CategoryList extends Vue {
   categories: any = null
+  animation: Array<string> =[]
+  flag: Array<boolean> = []
+  signed_in: boolean = false
 
   async Fetch() {
-    const response = await fetch('http://127.0.0.1:8000/category')
+    const response = await fetch('http://0.0.0.0:8000/category')
     if (!response.ok) {
       const err = await response.json()
       throw new Error(err)
@@ -37,9 +52,120 @@ export default class CategoryList extends Vue {
     console.log('success!')
   }
 
+  async getFavData() {
+    let idToken = null
+
+     try{
+     await Auth.currentSession()
+      .then(data => {
+        idToken = data.getIdToken().getJwtToken()
+      })}catch(error){
+        console.log(error)
+        return
+      } 
+
+    await axios.get('http://0.0.0.0:8000/like',{
+        headers: {
+          "Authorization": idToken
+        }
+      }).then(response => {
+         this.flag=response.data
+      }).catch(error=>{
+        console.log(error)
+        return
+      })
+    
+    for(let index in this.flag){
+      if(this.flag[index]===true){
+        this.$set(this.animation,index,"HeartAnimation")
+      }else{
+        this.$set(this.animation,index,"")
+      }
+    }
+ }
+
+ async setFav(index: number,nextFlag: boolean){
+    let idToken = null
+    
+     try{
+     await Auth.currentSession()
+      .then(data => {
+        idToken = data.getIdToken().getJwtToken()
+      })}catch(error){
+        console.log(error)
+        return
+      } 
+
+    await axios.get('http://0.0.0.0:8000/like',{
+        headers: {
+          "Authorization": idToken
+        }
+      }).then(response => {
+         this.flag=response.data
+      }).catch(error=>{
+        console.log(error)
+        return
+      })
+    
+    for(let index in this.flag){
+      if(this.flag[index]===true){
+        this.$set(this.animation,index,"HeartAnimation")
+      }else{
+        this.$set(this.animation,index,"")
+      }
+    }
+ }
+
+  async put_fav_data(flag:boolean,id:number){
+    let idToken = null
+    
+     try{
+     await Auth.currentSession()
+      .then(data => {
+        idToken = data.getIdToken().getJwtToken()
+      })}catch(error){
+        console.log(error)
+        return
+      } 
+
+    const response=await axios.put('http://0.0.0.0:8000/like',{"flag":flag,"id":id},{
+      headers: {
+        "Authorization": idToken
+      }
+    }).then(data=>{
+      console.log(data)
+    })
+  }
+ 
+
+   //TODO　APIと通信してDBの情報を更新する。
+  fav(index:number,id:number){
+    if (this.flag[index]) {
+      this.$set(this.flag,index,false)
+      this.$set(this.animation,index,"")
+      this.$set(this.animation,index,"background-position:left")
+      this.put_fav_data(false,id)
+    } else {
+      this.$set(this.flag,index,true)
+      this.$set(this.animation,index,"HeartAnimation")
+      this.put_fav_data(true,id)
+    }
+  }
+
+  async loginFlag(){
+     this.signed_in=true
+     await Auth.currentUserInfo()
+    .then(data => this.signed_in = Boolean(data))
+    .catch(err => console.log(err))
+    console.log(this.signed_in)
+    return this.signed_in
+  }
+
+
   created() {
-    console.log('categories:' + this.categories)
     this.Fetch()
+    this.loginFlag()
+    this.getFavData()
   }
 }
 </script>

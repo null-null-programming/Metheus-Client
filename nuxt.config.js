@@ -39,7 +39,6 @@ export default {
     '@nuxtjs/pwa',
     // https://go.nuxtjs.dev/content
     '@nuxt/content',
-    '@nuxtjs/auth-next',
     '@nuxtjs/dotenv',
     '@nuxtjs/markdownit',
   ],

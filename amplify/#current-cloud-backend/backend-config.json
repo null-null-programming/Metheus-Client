@@ -1,0 +1,10 @@
+{
+  "auth": {
+    "metheusclient8dd8afa2": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    }
+  }
+}
